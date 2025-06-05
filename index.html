@@ -10,6 +10,14 @@
 <body>
     <div id="pomodoro-container">
         <div id="timer-display">25:00</div>
+        <div id="duration-inputs">
+            <label for="pomodoro-duration">Pomodoro (min):</label>
+            <input type="number" id="pomodoro-duration" min="1" max="120" value="25">
+            <label for="short-break-duration">Pausa Curta (min):</label>
+            <input type="number" id="short-break-duration" min="1" max="30" value="5">
+            <label for="long-break-duration">Pausa Longa (min):</label>
+            <input type="number" id="long-break-duration" min="1" max="60" value="15">
+        </div>
         <div id="controls">
             <button id="start-btn">Iniciar</button>
             <button id="pause-btn">Pausar</button>
