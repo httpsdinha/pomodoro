@@ -1,15 +1,22 @@
 let workDuration = 25 * 60; // 25 minutos
-let breakDuration = 5 * 60; // 5 minutos
+let shortBreakDuration = 5 * 60; // 5 minutos
+let longBreakDuration = 15 * 60; // 15 minutos
+let isShortBreak = true;
+let isLongBreak = false;
 let timer = workDuration;
 let isRunning = false;
 let isWorkTime = true;
 let intervalId = null;
+let pomodoroCount = 0; 
 
 // Elementos DOM
 const timerDisplay = document.getElementById('timer-display');
 const startBtn = document.getElementById('start-btn');
 const pauseBtn = document.getElementById('pause-btn');
 const resetBtn = document.getElementById('reset-btn');
+const pomodoroDurationInput = document.getElementById('pomodoro-duration');
+const shortBreakDurationInput = document.getElementById('short-break-duration');
+const longBreakDurationInput = document.getElementById('long-break-duration');
 
 function updateDisplay() {
     const minutes = String(Math.floor(timer / 60)).padStart(2, '0');
@@ -33,19 +40,74 @@ function stopTimer() {
     }
 }
 
+function getNextPhase() {
+    if (isWorkTime) {
+        // Acabou um pomodoro de trabalho
+        pomodoroCount++;
+        
+        // A cada 4 pomodoros, pausa longa
+        if (pomodoroCount % 4 === 0) {
+            return {
+                isWork: false,
+                isShort: false,
+                duration: longBreakDuration,
+                message: 'Parabéns! Você completou 4 pomodoros! Hora da pausa longa!'
+            };
+        } else {
+            return {
+                isWork: false,
+                isShort: true,
+                duration: shortBreakDuration,
+                message: `Pomodoro ${pomodoroCount} concluído! Hora da pausa curta!`
+            };
+        }
+    } else {
+        // Acabou uma pausa (curta ou longa)
+        return {
+            isWork: true,
+            isShort: false,
+            duration: workDuration,
+            message: 'Pausa terminada! Hora de trabalhar!'
+        };
+    }
+}
+
+function updateDurationsFromInputs() {
+    workDuration = parseInt(pomodoroDurationInput.value) * 60;
+    shortBreakDuration = parseInt(shortBreakDurationInput.value) * 60;
+    longBreakDuration = parseInt(longBreakDurationInput.value) * 60;
+    
+    // Se o timer não estiver rodando E estiver no tempo máximo (não pausado no meio)
+    if (!isRunning) {
+        if (isWorkTime) {
+            timer = workDuration;
+        } else if (isShortBreak) {
+            timer = shortBreakDuration;
+        } else {
+            timer = longBreakDuration;
+        }
+        updateDisplay();
+    }
+}
+
 function tick() {
     if (timer > 0) {
         timer--;
         updateDisplay();
     } else {
-        stopTimer(); // Usando função reutilizada
+        stopTimer();
         
-        isWorkTime = !isWorkTime;
-        timer = isWorkTime ? workDuration : breakDuration;
+        const nextPhase = getNextPhase();
+        isWorkTime = nextPhase.isWork;
+        isShortBreak = nextPhase.isShort;
         
-        alert(isWorkTime ? 'Descanso terminado! Hora de trabalhar!' : 'Tempo de trabalho terminado! Hora do descanso!');
+        // Atualiza as durações antes de definir o próximo timer
+        updateDurationsFromInputs();
+        timer = nextPhase.duration;
+        
+        alert(nextPhase.message);
         updateDisplay();
-        startTimer(); // Iniciar automaticamente próxima fase
+        startTimer(); // aqui pode estar um possivel hotfix. reinicio automatico do timer.
     }
 }
 
