@@ -139,6 +139,9 @@ function resetTimer() {
 startBtn.addEventListener('click', startTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn?.addEventListener('click', resetTimer); // Usando optional chaining
+pomodoroDurationInput.addEventListener('input', updateDurationsFromInputs);
+shortBreakDurationInput.addEventListener('input', updateDurationsFromInputs);
+longBreakDurationInput.addEventListener('input', updateDurationsFromInputs);
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
