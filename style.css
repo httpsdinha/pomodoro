@@ -51,9 +51,33 @@ body {
     justify-content: center;
 }
 
+/* Inputs de duração estilizados */
+#duration-inputs input[type="number"] {
+    width: 60px;
+    padding: 0.5rem 0.3rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    text-align: center;
+    background: #f8fafc;
+    color: #333;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.07);
+}
+
+#duration-inputs input[type="number"]:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 2px #764ba233;
+}
+
 #duration-inputs label {
     margin-bottom: 0.2rem;
     margin-right: 0.3rem;
+    font-size: 1rem;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
 }
 
 .duration-group {
