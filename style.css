@@ -32,6 +32,36 @@ body {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
+#timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #d9534f;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+#duration-inputs {
+    display: flex;
+    flex-direction: row;      /* Alinha horizontalmente */
+    gap: 1.5rem;              /* Espaço entre os grupos */
+    margin-bottom: 1.5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#duration-inputs label {
+    margin-bottom: 0.2rem;
+    margin-right: 0.3rem;
+}
+
+.duration-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #controls {
     display: flex;
     gap: 1.2rem;
