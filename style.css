@@ -77,7 +77,6 @@ body {
     align-items: center;
 }
 
-/* Espaço extra entre label e input */
 .duration-group label {
     margin-bottom: 0.4rem;
 }
