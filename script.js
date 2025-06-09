@@ -15,6 +15,7 @@ const resetBtn = document.getElementById('reset-btn');
 const pomodoroDurationInput = document.getElementById('pomodoro-duration');
 const shortBreakDurationInput = document.getElementById('short-break-duration');
 const longBreakDurationInput = document.getElementById('long-break-duration');
+const pomodoroCounterDisplay = document.getElementById('pomodoro-counter');
 
 function updateDisplay() {
     let activeInputInvalid = false;
@@ -50,9 +51,14 @@ function stopTimer() {
     }
 }
 
+function updateCounterDisplay() {
+    pomodoroCounterDisplay.textContent = `Ciclos: ${pomodoroCount}`;
+}
+
 function getNextPhase() {
     if (isWorkTime) {
         pomodoroCount++;
+        updateCounterDisplay();
         
         if (pomodoroCount % 4 === 0) {
             return {
@@ -196,6 +202,7 @@ function resetTimer() {
     
     timer = workDuration;
     pomodoroCount = 0;
+    updateCounterDisplay();
     isShortBreak = true;
 
     updateDisplay();
